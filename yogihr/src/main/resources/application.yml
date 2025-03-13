@@ -1,0 +1,7 @@
+spring:
+    application:
+        name: yogihr
+    datasource:
+        url: jdbc:mysql://localhost:3060/employee_directory
+        username: springstudent
+        password: springstudent
