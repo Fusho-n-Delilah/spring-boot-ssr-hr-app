@@ -30,7 +30,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationSuccessHandler customAuthenticationSuccessHandler) throws Exception{
 
         http.authorizeRequests(configurer ->
-                configurer.requestMatchers("/home").hasRole("EMPLOYEE")
+                configurer.requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**").permitAll()
+                            .requestMatchers("/home").hasRole("EMPLOYEE")
                             .requestMatchers("/manage/**").hasRole("HR")
                             .requestMatchers("/admin/**").hasRole("ADMIN")
                             .anyRequest().authenticated()
@@ -40,6 +41,9 @@ public class SecurityConfig {
                 .loginProcessingUrl("/authenticateTheUser")
                 .successHandler(customAuthenticationSuccessHandler)
                 .permitAll()
+        )
+        .exceptionHandling(configurer ->
+                configurer.accessDeniedPage("/access-denied")
         )
         .logout(
             logout -> logout.permitAll()

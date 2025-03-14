@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- CSS files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/utility.css}"/>
+</head>
+<body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/home}"><img th:src="@{images/logo.png}" style="height:50px;width:50px" alt="" class="me-3"><span>Yogi</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav nav-pills ms-xs-auto mx-lg-auto text-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-white rounded-pill active" aria-current="page" th:href="@{/home}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Time Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Time-Off Request</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Information
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Address &amp; Contact Info</a></li>
+                            <li><a class="dropdown-item" href="#">HR Information</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Payroll
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">View Pay Stubs</a></li>
+                            <li><a class="dropdown-item" href="#">Pay Rates</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Documents</a>
+                    </li>
+                </ul>
+            </div>
+            <a href="" class="d-none d-lg-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="dark-subtle" class="bi bi-person-circle ms-5" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Start of Body Content-->
+    <section id="content">
+        <div class="container my-4">
+            <h2 class="mb-3">Welcome Back, <span th:text="${employee.firstName} + ' ' + ${employee.lastName}"/> !</h2>
+            <hr>
+            <div class="row d-none d-md-flex"> <!-- Standard card layout for md and larger -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card d-flex flex-column align-items-center p-3 text-center shadow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24"><path d="M15.91 13.34l2.636-4.026-.454-.406-3.673 3.099c-.675-.138-1.402.068-1.894.618-.736.823-.665 2.088.159 2.824.824.736 2.088.665 2.824-.159.492-.55.615-1.295.402-1.95zm-3.91-10.646v-2.694h4v2.694c-1.439-.243-2.592-.238-4 0zm8.851 2.064l1.407-1.407 1.414 1.414-1.321 1.321c-.462-.484-.964-.927-1.5-1.328zm-18.851 4.242h8v2h-8v-2zm-2 4h8v2h-8v-2zm3 4h7v2h-7v-2zm21-3c0 5.523-4.477 10-10 10-2.79 0-5.3-1.155-7.111-3h3.28c1.138.631 2.439 1 3.831 1 4.411 0 8-3.589 8-8s-3.589-8-8-8c-1.392 0-2.693.369-3.831 1h-3.28c1.811-1.845 4.321-3 7.111-3 5.523 0 10 4.477 10 10z"/></svg>
+                        <h5 class="mt-3">Time Management</h5>
+                        <a href="#" class="nav-link mb-4">Time Management</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card d-flex flex-column align-items-center p-3 text-center shadow">
+                        <svg width="100" height="100" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M4.058 5.284c1.3.313 14.092 3.764 19.2 5.128.447.131.703.484.738.877.009.1 0 .198-.019.298-.863 3.579-1.906 7.115-2.86 10.673-.133.45-.49.702-.878.736-.101.01-.198.002-.298-.017-6.439-1.551-12.8-3.418-19.199-5.128-.456-.134-.704-.492-.738-.877-.009-.1 0-.199.018-.297.864-3.581 1.907-7.117 2.86-10.674.157-.525.631-.82 1.176-.719m-1.832 10.893l17.216 4.601 2.331-8.692c-4.785-1.279-17.215-4.599-17.215-4.599-.778 2.896-1.555 5.794-2.332 8.69m16.148 3.479l.258-.963-2.717-.717-.259.965 2.718.715zm-5.019-1.325l.966.262.444-1.658-.965-.262-.445 1.658zm5.708-1.328l.259-.965-2.718-.717-.26.965 2.719.717zm-12.949-3.539l2.176-.869-2-2 .689-.276 3.381 1.448 1.725-.689c.456-.185 1.173-.068 1.311.276l.023.18c-.028.338-.403.77-.782.924l-1.725.688-1.449 3.379-.691.275.07-2.827-2.177.869-.514 1.006-.484.192-.037-1.585-1.065-1.172.482-.193 1.067.374zm7.945 2.242l.966.262.503-1.875-.967-.261-.502 1.874zm5.449-.434l.259-.966-2.719-.716-.258.965 2.718.717zm.465-1.768l.259-.965-2.718-.717-.259.966 2.718.716zm-5.153-.638l.967.261.444-1.658-.966-.261-.445 1.658zm-7.641-8.495c4.259-1.125 8.533-2.2 12.788-3.337.143-.035.208-.035.299-.034.427.028.765.27.912.691.678 2.297 1.28 4.614 1.88 6.931l-2.256-.604-1.283-4.794-8.318 2.223-4.022-1.076z"/></svg>
+                        <h5 class="mt-3">Request Time Off</h5>
+                        <a href="#" class="nav-link mb-4">Time Off Requests</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card d-flex flex-column align-items-center p-3 text-center shadow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.305c-.261-.586-.789-.991-1.871-1.241-2.293-.529-4.428-.993-3.393-2.945 3.145-5.942.833-9.119-2.489-9.119-3.388 0-5.644 3.299-2.489 9.119 1.066 1.964-1.148 2.427-3.393 2.945-1.084.25-1.608.658-1.867 1.246-1.405-1.723-2.251-3.919-2.251-6.31 0-5.514 4.486-10 10-10s10 4.486 10 10c0 2.389-.845 4.583-2.247 6.305z"/></svg>
+                        <h5 class="mt-3">Employee Information</h5>
+                        <a href="#" class="nav-link">Address &amp; Contact Info</a>
+                        <a href="#" class="nav-link">HR Info</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card d-flex flex-column align-items-center p-3 text-center shadow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"  viewBox="0 0 24 24"><path d="M17 12c-3.313 0-6 2.687-6 6s2.687 6 6 6 6-2.687 6-6-2.687-6-6-6zm.5 8.474v.526h-.5v-.499c-.518-.009-1.053-.132-1.5-.363l.228-.822c.478.186 1.114.383 1.612.27.574-.13.692-.721.057-1.005-.465-.217-1.889-.402-1.889-1.622 0-.681.52-1.292 1.492-1.425v-.534h.5v.509c.362.01.768.073 1.221.21l-.181.824c-.384-.135-.808-.257-1.222-.232-.744.043-.81.688-.29.958.856.402 1.972.7 1.972 1.773.001.858-.672 1.315-1.5 1.432zm1.624-10.179c1.132-.223 2.162-.626 2.876-1.197v.652c0 .499-.386.955-1.007 1.328-.581-.337-1.208-.6-1.869-.783zm-2.124-5.795c2.673 0 5-1.007 5-2.25s-2.327-2.25-5-2.25c-2.672 0-5 1.007-5 2.25s2.328 2.25 5 2.25zm.093-2.009c-.299-.09-1.214-.166-1.214-.675 0-.284.334-.537.958-.593v-.223h.321v.211c.234.005.494.03.784.09l-.116.342c-.221-.051-.467-.099-.708-.099l-.072.001c-.482.02-.521.287-.188.399.547.169 1.267.292 1.267.74 0 .357-.434.548-.967.596v.22h-.321v-.208c-.328-.003-.676-.056-.962-.152l.147-.343c.244.063.552.126.828.126l.208-.014c.369-.053.443-.3.035-.418zm-11.093 13.009c1.445 0 2.775-.301 3.705-.768.311-.69.714-1.329 1.198-1.899-.451-1.043-2.539-1.833-4.903-1.833-2.672 0-5 1.007-5 2.25s2.328 2.25 5 2.25zm.093-2.009c-.299-.09-1.214-.166-1.214-.675 0-.284.335-.537.958-.593v-.223h.321v.211c.234.005.494.03.784.09l-.117.342c-.22-.051-.466-.099-.707-.099l-.072.001c-.482.02-.52.287-.188.399.547.169 1.267.292 1.267.74 0 .357-.434.548-.967.596v.22h-.321v-.208c-.329-.003-.676-.056-.962-.152l.147-.343c.244.063.552.126.828.126l.208-.014c.368-.053.443-.3.035-.418zm4.003 8.531c-.919.59-2.44.978-4.096.978-2.672 0-5-1.007-5-2.25v-.652c1.146.918 3.109 1.402 5 1.402 1.236 0 2.499-.211 3.549-.611.153.394.336.773.547 1.133zm-9.096-3.772v-.651c1.146.917 3.109 1.401 5 1.401 1.039 0 2.094-.151 3.028-.435.033.469.107.926.218 1.37-.888.347-2.024.565-3.246.565-2.672 0-5-1.007-5-2.25zm0-2.5v-.652c1.146.918 3.109 1.402 5 1.402 1.127 0 2.275-.176 3.266-.509-.128.493-.21 1.002-.241 1.526-.854.298-1.903.483-3.025.483-2.672 0-5-1.007-5-2.25zm11-11v-.652c1.146.918 3.109 1.402 5 1.402 1.892 0 3.854-.484 5-1.402v.652c0 1.243-2.327 2.25-5 2.25-2.672 0-5-1.007-5-2.25zm0 5v-.652c.713.571 1.744.974 2.876 1.197-.661.183-1.287.446-1.868.783-.622-.373-1.008-.829-1.008-1.328zm0-2.5v-.651c1.146.917 3.109 1.401 5 1.401 1.892 0 3.854-.484 5-1.401v.651c0 1.243-2.327 2.25-5 2.25-2.672 0-5-1.007-5-2.25z"/></svg>
+                        <h5 class="mt-3">Payroll</h5>
+                        <a href="#" class="nav-link">View Pay Stubs</a>
+                        <a href="#" class="nav-link">Pay Rates</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion for small screens -->
+            <div class="accordion d-md-none" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            Time Management
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <a href="#" class="nav-link">Time Management</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            Request Time Off
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <a href="#" class="nav-link">Time Off Requests</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                            Employee Information
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <a href="#" class="nav-link">Address &amp; Contact Info</a>
+                            <a href="#" class="nav-link">HR Info</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                            Payroll
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <a href="#" class="nav-link">View Pay Stubs</a>
+                            <a href="#" class="nav-link">Pay Rates</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="bg-dark text-white">
+            <div class="container">
+                <div class="row row-cols-1">
+                    <div class="col text-center">
+                        <p class="pt-4 c-statement">
+                            <small>&copy; Fusho Designs<br>
+                                All Rights Reserved. <br>
+                                Site Developed by <a href="https://github.com/Fusho-n-Delilah/" target="_blank">Alec Feldhaus</a>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>

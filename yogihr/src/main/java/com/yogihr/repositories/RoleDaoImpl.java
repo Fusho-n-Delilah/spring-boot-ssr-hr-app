@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class RoleDaoImpl implements RoleDao{
 
     private EntityManager entityManager;
