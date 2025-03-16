@@ -17,6 +17,20 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public Employee findById(int id) {
-        return null;
+       return employeeDao.findById(id);
+    }
+
+    @Override
+    public Employee findEmployeeWithContactInfo(Employee employee) {
+        int id = employee.getId();
+
+        employee = employeeDao.findEmployeeJoinFetchContactById(id);
+
+        return employee;
+    }
+
+    @Override
+    public void save(Employee employee) {
+        employeeDao.save(employee);
     }
 }

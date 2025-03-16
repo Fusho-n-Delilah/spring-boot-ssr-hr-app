@@ -31,7 +31,7 @@ public class SecurityConfig {
 
         http.authorizeRequests(configurer ->
                 configurer.requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**").permitAll()
-                            .requestMatchers("/home").hasRole("EMPLOYEE")
+                            .requestMatchers("/home", "/employee/**").hasRole("EMPLOYEE")
                             .requestMatchers("/manage/**").hasRole("HR")
                             .requestMatchers("/admin/**").hasRole("ADMIN")
                             .anyRequest().authenticated()

@@ -23,7 +23,11 @@ public class FrontController {
     public String showHome(Model theModel, HttpSession session) {
         User user = (User) session.getAttribute("user");
 
-        Employee employee = user.getEmployee();
+        Employee employee= user.getEmployee();;
+
+        if(session.getAttribute("employee") == null){
+            session.setAttribute("employee", employee);
+        }
 
         theModel.addAttribute("employee", employee);
 

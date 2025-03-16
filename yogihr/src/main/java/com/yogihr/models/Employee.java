@@ -33,6 +33,9 @@ public class Employee {
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private User user;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "emp_no")
+    private Contact contact;
 
     public Employee() {
     }
@@ -101,6 +104,13 @@ public class Employee {
         this.user = user;
     }
 
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
     @Override
     public String toString() {
         return "Employee{" +
@@ -109,7 +119,7 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
-                ", hireDate=" + hireDate +
-                '}';
+                ", hireDate=" + hireDate + '}';
     }
+
 }
