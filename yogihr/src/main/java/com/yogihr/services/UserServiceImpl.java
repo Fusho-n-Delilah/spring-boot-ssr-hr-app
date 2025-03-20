@@ -12,10 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.yogihr.dtos.WebUser;
-import com.yogihr.models.Role;
-import com.yogihr.models.User;
-import com.yogihr.repositories.RoleDao;
-import com.yogihr.repositories.UserDao;
+import com.yogihr.models.security.Role;
+import com.yogihr.models.security.User;
+import com.yogihr.repositories.security.RoleDao;
+import com.yogihr.repositories.security.UserDao;
 
 @Service
 public class UserServiceImpl implements UserService{

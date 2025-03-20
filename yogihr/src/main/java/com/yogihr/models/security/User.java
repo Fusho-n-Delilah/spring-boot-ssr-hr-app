@@ -1,8 +1,8 @@
-package com.yogihr.models;
+package com.yogihr.models.security;
 
 import java.util.Collection;
-import java.util.List;
 
+import com.yogihr.models.employee.Employee;
 import jakarta.persistence.*;
 
 @Entity

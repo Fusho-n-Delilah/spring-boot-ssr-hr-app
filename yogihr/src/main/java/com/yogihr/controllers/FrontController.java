@@ -1,9 +1,8 @@
 package com.yogihr.controllers;
 
-import com.yogihr.models.Employee;
-import com.yogihr.models.User;
+import com.yogihr.models.employee.Employee;
+import com.yogihr.models.security.User;
 import com.yogihr.services.EmployeeService;
-import com.yogihr.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

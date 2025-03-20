@@ -1,6 +1,6 @@
 package com.yogihr.dtos;
 
-import com.yogihr.models.Contact;
+import com.yogihr.models.employee.Contact;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

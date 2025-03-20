@@ -103,7 +103,7 @@
         <div class="col col-xs-12 col-md-3 mt-3">
           <h4 class="h6">State</h4>
           <select th:field="*{state}" class="form-control">
-            <option th:each="state : ${states}" th:value="${state}" th:text="${state}"/>
+            <option th:each="tempState : ${states}" th:value="${tempState}" th:text="${tempState}"/>
           </select>
         </div>
         <div class="col col-xs-12 col-md-3 mt-3">
@@ -123,6 +123,24 @@
            style="margin-bottom: 25px" class="text-danger">
         <ul>
           <li th:each="err : ${#fields.errors('apt')}" th:text="' ' + ${err}" />
+        </ul>
+      </div>
+      <div th:if="${#fields.hasErrors('city')}"
+           style="margin-bottom: 25px" class="text-danger">
+        <ul>
+          <li th:each="err : ${#fields.errors('city')}" th:text="'City ' + ${err}" />
+        </ul>
+      </div>
+      <div th:if="${#fields.hasErrors('state')}"
+           style="margin-bottom: 25px" class="text-danger">
+        <ul>
+          <li th:each="err : ${#fields.errors('state')}" th:text="' ' + ${err}" />
+        </ul>
+      </div>
+      <div th:if="${#fields.hasErrors('postalCode')}"
+           style="margin-bottom: 25px" class="text-danger">
+        <ul>
+          <li th:each="err : ${#fields.errors('postalCode')}" th:text="' ' + ${err}" />
         </ul>
       </div>
 

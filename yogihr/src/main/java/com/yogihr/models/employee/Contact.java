@@ -1,6 +1,8 @@
-package com.yogihr.models;
+package com.yogihr.models.employee;
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "contact")
@@ -134,5 +136,18 @@ public class Contact {
                 ", State='" + state + '\'' +
                 ", postalCode='" + postalCode + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contact contact = (Contact) o;
+        return id == contact.id && Objects.equals(workEmail, contact.workEmail) && Objects.equals(personalEmail, contact.personalEmail) && Objects.equals(phoneNumber, contact.phoneNumber) && Objects.equals(streetAddress, contact.streetAddress) && Objects.equals(apt, contact.apt) && Objects.equals(city, contact.city) && Objects.equals(state, contact.state) && Objects.equals(postalCode, contact.postalCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, workEmail, personalEmail, phoneNumber, streetAddress, apt, city, state, postalCode);
     }
 }

@@ -1,0 +1,61 @@
+package com.yogihr.services;
+
+import com.yogihr.dtos.WebPTORequest;
+import com.yogihr.models.payroll.PTORequest;
+import com.yogihr.repositories.payroll.PTORequestDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+@Service
+public class PTORequestServiceImpl implements PTORequestService{
+
+    private PTORequestDAO ptoRequestDAO;
+
+    @Autowired
+    public PTORequestServiceImpl(PTORequestDAO ptoRequestDAO){
+        this.ptoRequestDAO = ptoRequestDAO;
+    }
+
+    @Override
+    public void save(WebPTORequest newRequest) {
+        PTORequest ptoRequest =  new PTORequest();
+
+        //set some default data like total Hours
+        long daysBetween = ChronoUnit.DAYS.between(newRequest.getFromDate(), newRequest.getToDate());
+        double totalHours = 8.0 * daysBetween;
+
+        //assign the webPtoRequest details to a PTORequest Object
+        ptoRequest.setEmployeeNumber(newRequest.getEmployeeNumber());
+        ptoRequest.setFromDate(newRequest.getFromDate());
+        ptoRequest.setToDate(newRequest.getToDate());
+        ptoRequest.setTotalHours(totalHours);
+        ptoRequest.setApproved(false);
+
+
+        ptoRequestDAO.save(ptoRequest);
+    }
+
+    @Override
+    public List<PTORequest> findAll() {
+        return ptoRequestDAO.findAll();
+    }
+
+    @Override
+    public List<PTORequest> findAllUnapproved() {
+        return ptoRequestDAO.findAllUnapproved();
+    }
+
+    @Override
+    public List<PTORequest> findAllByEmpIdSortApprovedDesc(int id) {
+        return ptoRequestDAO.findAllByEmpIdSortApprovedDesc(id);
+    }
+
+    @Override
+    public PTORequest findByEmpIdAndFromDate(int id, LocalDate fromDate) throws jakarta.persistence.NoResultException{
+        return ptoRequestDAO.findByEmpIdAndFromDate(id, fromDate);
+    }
+}

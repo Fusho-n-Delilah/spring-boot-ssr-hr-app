@@ -1,9 +1,9 @@
-package com.yogihr.repositories;
+package com.yogihr.repositories.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.yogihr.models.User;
+import com.yogihr.models.security.User;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;

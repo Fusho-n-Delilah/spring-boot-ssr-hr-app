@@ -1,6 +1,6 @@
-package com.yogihr.repositories;
+package com.yogihr.repositories.security;
 
-import com.yogihr.models.Role;
+import com.yogihr.models.security.Role;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

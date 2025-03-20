@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+  <!-- CSS files -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/utility.css}"/>
+</head>
+<body class="bg-light">
+<div class="container">
+  <h2 class="ms-5 my-4">Edit Employee</h2>
+  <div class="bg-white p-5 shadow mb-5">
+
+
+    <!-- Nav Tabs -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="employee-tab" data-bs-toggle="tab" data-bs-target="#employee" type="button" role="tab" aria-controls="employee" aria-selected="true">Employee Info</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="department-tab" data-bs-toggle="tab" data-bs-target="#department" type="button" role="tab" aria-controls="department" aria-selected="false">Department Info</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="salary-tab" data-bs-toggle="tab" data-bs-target="#salary" type="button" role="tab" aria-controls="salary" aria-selected="false">Salary Info</button>
+      </li>
+    </ul>
+    <!--  Start of Form -->
+    <form action="#" th:action="@{/manage/modifyEmployeeContact}"
+          th:object="${webEmployee}"
+          method="POST" class="form-horizontal">
+
+      <!-- Start of content -->
+      <div class="tab-content p-4" id="myTabContent">
+        <!-- Employee and Contact Info Tab -->
+        <div class="tab-pane fade show active" id="employee" role="tabpanel" aria-labelledby="employee-tab">
+
+          <!-- Place for messages: error, alert etc ... -->
+          <!--      <div class="form-group">-->
+          <!--        <div class="col-xs-15">-->
+          <!--          <div>-->
+
+          <!--            &lt;!&ndash; Check for login error &ndash;&gt;-->
+
+          <!--            <div th:if="${param.contactError}">-->
+
+          <!--              <div class="alert alert-danger col-xs-offset-1 col-xs-10">-->
+          <!--                <span th:text="${param.contactError}"></span>-->
+          <!--              </div>-->
+
+          <!--            </div>-->
+
+          <!--          </div>-->
+          <!--        </div>-->
+          <!--      </div>-->
+            <!-- Name & Birthdate -->
+            <div class="row mt-5">
+              <h3 class="h4">Employee</h3>
+              <div class="col-md-6 mt-3">
+                <h4 class="h6">Employee #</h4>
+                <input type="number" th:field="*{id}" th:value="*{id}" class="form-control" readonly/>
+              </div>
+              <div th:if="${#fields.hasErrors('id')}"
+                   style="margin-bottom: 25px" class="text-danger">
+                <ul>
+                  <li th:each="err : ${#fields.errors('id')}" th:text="'ID ' + ${err}" />
+                </ul>
+              </div>
+              <div class="col-md-6 mt-3">
+                <h4 class="h6">Birth Date</h4>
+                <input type="date" th:field="*{birthDate}" th:value="*{birthDate}"  class="form-control"/>
+              </div>
+              <div th:if="${#fields.hasErrors('birthDate')}"
+                   style="margin-bottom: 25px" class="text-danger">
+                <ul>
+                  <li th:each="err : ${#fields.errors('birthDate')}" th:text="'Birth date ' + ${err}" />
+                </ul>
+              </div>
+              <div class="col-md-6 mt-3">
+                <h4 class="h6">First Name</h4>
+                <input type="text" th:field="*{firstName}"  th:value="*{firstName}"  class="form-control"/>
+              </div>
+              <div th:if="${#fields.hasErrors('firstName')}"
+                   style="margin-bottom: 25px" class="text-danger">
+                <ul>
+                  <li th:each="err : ${#fields.errors('firstName')}" th:text="'First name ' + ${err}" />
+                </ul>
+              </div>
+              <div class="col-md-6 mt-3">
+                <h4 class="h6">Last Name</h4>
+                <input type="text" th:field="*{lastName}"  th:value="*{lastName}"  class="form-control"/>
+              </div>
+              <div th:if="${#fields.hasErrors('lastName')}"
+                   style="margin-bottom: 25px" class="text-danger">
+                <ul>
+                  <li th:each="err : ${#fields.errors('lastName')}" th:text="'Last name ' + ${err}" />
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-3 mt-3">
+              <h4 class="h6">Gender</h4>
+              <select th:field="*{gender}" class="form-control">
+                <option th:each="tempGender : ${genders}" th:value="${tempGender}" th:text="${tempGender}"/>
+              </select>
+            </div>
+
+            <!--Work Email-->
+            <div class="row mt-4">
+              <h3 class="h4">Email</h3>
+              <div class="col col-xs-12 col-md-6">
+                <h4 class="h6 mt-3">Work Email</h4>
+                <input type="text" th:field="*{workEmail}" th:value="*{workEmail}"  class="form-control"/>
+              </div>
+            </div>
+            <div th:if="${#fields.hasErrors('workEmail')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('workEmail')}" th:text="'Work email ' + ${err}" />
+              </ul>
+            </div>
+
+            <!--Personal Email-->
+            <div class="row mt-3">
+              <div class="col col-xs-12 col-md-6">
+                <h4 class="h6">Personal Email</h4>
+                <input type="text" th:field="*{personalEmail}" th:value="*{personalEmail}" class="form-control"/>
+              </div>
+            </div>
+            <div th:if="${#fields.hasErrors('personalEmail')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('personalEmail')}" th:text="'Personal email ' + ${err}" />
+              </ul>
+            </div>
+
+            <!--Phone Number-->
+            <div class="row mt-5">
+              <h3 class="h4">Phone Number</h3>
+              <div class="col col-xs-12 col-md-6 mt-3">
+                <h4 class="h6">Phone number</h4>
+                <input type="text" th:field="*{phoneNumber}" th:value="*{personalEmail}"  class="form-control"/>
+              </div>
+            </div>
+            <div th:if="${#fields.hasErrors('phoneNumber')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('phoneNumber')}" th:text="'Personal email ' + ${err}" />
+              </ul>
+            </div>
+
+            <!--Address-->
+            <div class="row mt-5">
+              <h3 class="h4">Address</h3>
+              <div class="col-md-6 mt-3">
+                <h4 class="h6">Street Address</h4>
+                <input type="text" th:field="*{streetAddress}" th:value="*{streetAddress}" class="form-control"/>
+              </div>
+              <div class="col-md-3 mt-3">
+                <h4 class="h6">Address line 2</h4>
+                <input type="text" th:field="*{apt}" th:value="*{apt}" class="form-control"/>
+              </div>
+              <div class="col-md-6 mt-3">
+                <h4 class="h6">City</h4>
+                <input type="text" th:field="*{city}" th:value="*{city}" class="form-control"/>
+              </div>
+              <div class="col-md-3 mt-3">
+                <h4 class="h6">State</h4>
+                <select th:field="*{state}" class="form-control">
+                  <option th:each="state : ${states}" th:value="${state}" th:text="${state}"/>
+                </select>
+              </div>
+              <div class="col-md-3 mt-3">
+                <h4 class="h6">Zip Code</h4>
+                <input type="text" th:field="*{postalCode}" th:value="*{postalCode}" class="form-control"/>
+              </div>
+            </div>
+
+            <!-- Address Error Handling-->
+            <div th:if="${#fields.hasErrors('streetAddress')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('streetAddress')}" th:text="'Street address ' + ${err}" />
+              </ul>
+            </div>
+            <div th:if="${#fields.hasErrors('apt')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('apt')}" th:text="' ' + ${err}" />
+              </ul>
+            </div>
+          <div th:if="${#fields.hasErrors('city')}"
+               style="margin-bottom: 25px" class="text-danger">
+            <ul>
+              <li th:each="err : ${#fields.errors('city')}" th:text="'City ' + ${err}" />
+            </ul>
+          </div>
+          <div th:if="${#fields.hasErrors('state')}"
+               style="margin-bottom: 25px" class="text-danger">
+            <ul>
+              <li th:each="err : ${#fields.errors('state')}" th:text="' ' + ${err}" />
+            </ul>
+          </div>
+          <div th:if="${#fields.hasErrors('postalCode')}"
+               style="margin-bottom: 25px" class="text-danger">
+            <ul>
+              <li th:each="err : ${#fields.errors('postalCode')}" th:text="' ' + ${err}" />
+            </ul>
+          </div>
+
+
+        </div>
+        <!-- Department info tab -->
+        <div class="tab-pane fade" id="department" role="tabpanel" aria-labelledby="contact-tab">
+          <!-- Name & Birthdate -->
+          <div class="row mt-5">
+            <h3 class="h4">Department and Title</h3>
+            <div class="col-md-6 mt-3">
+              <h4 class="h6">Title</h4>
+              <input type="text" th:field="*{title}" th:value="*{title}" class="form-control"/>
+            </div>
+            <div th:if="${#fields.hasErrors('title')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('title')}" th:text="'Title ' + ${err}" />
+              </ul>
+            </div>
+            <div class="col-md-6 mt-3">
+              <h4 class="h6">Department</h4>
+              <input type="text" th:field="*{department}" th:value="*{department}" class="form-control" readonly/>
+            </div>
+            <div th:if="${#fields.hasErrors('department')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('department')}" th:text="'Department ' + ${err}" />
+              </ul>
+            </div>
+            <div class="col-md-6 mt-3">
+              <h4 class="h6">Hire Date</h4>
+              <input type="date" th:field="*{hireDate}" th:value="*{hireDate}" class="form-control"/>
+            </div>
+            <div th:if="${#fields.hasErrors('hireDate')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('hireDate')}" th:text="'Hire date ' + ${err}" />
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Salary info tab -->
+        <div class="tab-pane fade" id="salary" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="row mt-5">
+            <h3 class="h4">Salary Info</h3>
+
+            <div class="col-md-6 mt-3">
+              <h4 class="h6">Employee Type</h4>
+              <select th:field="*{employeeType}" class="form-control">
+                <option th:each="tempType : ${empTypes}" th:value="${tempType}" th:text="${tempType}"/>
+              </select>
+            </div>
+            <div th:if="${#fields.hasErrors('employeeType')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('employeeType')}" th:text="'Employee Type ' + ${err}" />
+              </ul>
+            </div>
+            <div class="col-md-6 mt-3">
+              <h4 class="h6">Pay Type</h4>
+              <select th:field="*{payType}" class="form-control">
+                <option th:each="tempType : ${payTypes}" th:value="${tempType}" th:text="${tempType}"/>
+              </select>
+            </div>
+            <div th:if="${#fields.hasErrors('payType')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('payType')}" th:text="'Pay Type ' + ${err}" />
+              </ul>
+            </div>
+            <div class="col-md-6 mt-3">
+              <h4 class="h6">Pay Frequency</h4>
+              <select th:field="*{payFreq}" class="form-control">
+                <option th:each="tempFreq : ${payFrequencies}" th:value="${tempFreq}" th:text="${tempFreq}"/>
+              </select>
+            </div>
+            <div th:if="${#fields.hasErrors('payFreq')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('payFreq')}" th:text="'Pay Frequency ' + ${err}" />
+              </ul>
+            </div>
+            <div class="col-md-6 mt-3">
+              <h4 class="h6">DOL Status</h4>
+              <select th:field="*{dolStatus}" class="form-control">
+                <option th:each="tempStatus : ${dolStatuses}" th:value="${tempStatus}" th:text="${tempStatus}"/>
+              </select>
+            </div>
+            <div th:if="${#fields.hasErrors('dolStatus')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('dolStatus')}" th:text="'DOL Status ' + ${err}" />
+              </ul>
+            </div>
+            <div class="col-md-6 mt-3">
+              <h4 class="h6">Salary</h4>
+              <input type="number" th:field="*{salary}" th:value="*{salary}" class="form-control"/>
+            </div>
+            <div th:if="${#fields.hasErrors('salary')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('salary')}" th:text="'Salary ' + ${err}" />
+              </ul>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <h3 class="h5">Tax Details</h3>
+            <div class="col-md-6 mt-3">
+              <h4 class="h6">Federal</h4>
+              <input type="number" step="0.01" th:field="*{fedTax}" th:value="*{fedTax}" class="form-control"/>
+            </div>
+            <div th:if="${#fields.hasErrors('fedTax')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('fedTax')}" th:text="'Federal Tax ' + ${err}" />
+              </ul>
+            </div>
+            <div class="col-md-6 mt-3">
+              <h4 class="h6">Medicare</h4>
+              <input type="number" step="0.01" th:field="*{medTax}" th:value="*{medTax}" class="form-control"/>
+            </div>
+            <div th:if="${#fields.hasErrors('medTax')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('medTax')}" th:text="'Medicare Tax ' + ${err}" />
+              </ul>
+            </div>
+            <div class="col-md-6 mt-3">
+              <h4 class="h6">Soc Security</h4>
+              <input type="number" step="0.01" th:field="*{socSecTax}" th:value="*{socSecTax}" class="form-control"/>
+            </div>
+            <div th:if="${#fields.hasErrors('socSecTax')}"
+                 style="margin-bottom: 25px" class="text-danger">
+              <ul>
+                <li th:each="err : ${#fields.errors('socSecTax')}" th:text="'Social Security Tax ' + ${err}" />
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Update and Cancel Button -->
+      <div style="margin-top: 30px" class="form-group">
+        <div class="col d-flex justify-content-center controls">
+          <a th:href="@{/manage/list}" class="btn btn-light shadow-sm me-3">Cancel</a>
+          <button type="submit" class="btn btn-primary shadow-sm">Update</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Footer -->
+<footer>
+  <div class="bg-dark text-white">
+    <div class="container">
+      <div class="row row-cols-1">
+        <div class="col text-center">
+          <p class="pt-4 c-statement">
+            <small>&copy; Fusho Designs<br>
+              All Rights Reserved. <br>
+              Site Developed by <a href="https://github.com/Fusho-n-Delilah/" target="_blank">Alec Feldhaus</a>
+            </small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>

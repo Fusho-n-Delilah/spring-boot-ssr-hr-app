@@ -2,11 +2,10 @@ package com.yogihr.security;
 
 import java.io.IOException;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.yogihr.models.User;
+import com.yogihr.models.security.User;
 
 import com.yogihr.services.UserService;
 

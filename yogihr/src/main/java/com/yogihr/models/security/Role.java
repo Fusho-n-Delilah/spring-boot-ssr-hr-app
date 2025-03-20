@@ -1,4 +1,4 @@
-package com.yogihr.models;
+package com.yogihr.models.security;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
