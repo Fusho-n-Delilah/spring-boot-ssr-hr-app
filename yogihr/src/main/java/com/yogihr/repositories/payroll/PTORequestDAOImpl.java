@@ -27,6 +27,11 @@ public class PTORequestDAOImpl implements PTORequestDAO{
     }
 
     @Override
+    public PTORequest findById(int id) {
+        return entityManager.find(PTORequest.class, id);
+    }
+
+    @Override
     public List<PTORequest> findAll() {
         TypedQuery<PTORequest> query = entityManager.createQuery(
                 "SELECT r FROM PTORequest r", PTORequest.class);
@@ -37,7 +42,8 @@ public class PTORequestDAOImpl implements PTORequestDAO{
     @Override
     public List<PTORequest> findAllUnapproved() {
         TypedQuery<PTORequest> query = entityManager.createQuery(
-                "SELECT r FROM PTORequest r WHERE r.approved = 0", PTORequest.class);
+                "SELECT r FROM PTORequest r "
+                        + "WHERE r.approved = 0", PTORequest.class);
 
         return query.getResultList();
     }
@@ -46,7 +52,7 @@ public class PTORequestDAOImpl implements PTORequestDAO{
     public List<PTORequest> findAllByEmpIdSortApprovedDesc(int id) {
         TypedQuery<PTORequest> query = entityManager.createQuery(
                 "SELECT r FROM PTORequest r "
-                + "WHERE r.employeeNumber = :data "
+                + "WHERE r.employeeId = :data "
                 + "ORDER BY r.approved DESC", PTORequest.class);
         query.setParameter("data", id);
 
@@ -58,11 +64,17 @@ public class PTORequestDAOImpl implements PTORequestDAO{
 
         TypedQuery<PTORequest> query = entityManager.createQuery(
                 "SELECT r FROM PTORequest r "
-                        + "WHERE r.employeeNumber = :data "
+                        + "WHERE r.employeeId = :data "
                         + "AND r.fromDate = :date", PTORequest.class);
         query.setParameter("data", id);
         query.setParameter("date", fromDate);
 
         return query.getSingleResult();
+    }
+
+    @Override
+    @Transactional
+    public void delete(PTORequest ptoRequest) {
+        entityManager.remove(ptoRequest);
     }
 }

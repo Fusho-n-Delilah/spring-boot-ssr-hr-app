@@ -6,9 +6,11 @@ import com.yogihr.models.employee.Contact;
 import com.yogihr.models.employee.Department;
 import com.yogihr.models.employee.Employee;
 import com.yogihr.models.employee.Title;
+import com.yogihr.models.payroll.PTORequest;
 import com.yogihr.models.payroll.Salary;
 import com.yogihr.models.payroll.SalaryInfo;
 import com.yogihr.services.EmployeeService;
+import com.yogihr.services.PTORequestService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +48,12 @@ public class ManageController {
     private List<String> empTypes;
 
     private EmployeeService employeeService;
+    private PTORequestService ptoRequestService;
 
     @Autowired
-    public ManageController(EmployeeService employeeService){
+    public ManageController(EmployeeService employeeService, PTORequestService ptoRequestService){
         this.employeeService = employeeService;
+        this.ptoRequestService = ptoRequestService;
     }
 
     // simple mapping to return all 1000 employees (or a searched list) to a basic responsive table design to start
@@ -189,5 +193,33 @@ public class ManageController {
 
         //send 'em back to the homepage if successful
         return "redirect:/manage/list";
+    }
+
+    @GetMapping("timeOff")
+    public String viewTimeOff(Model theModel){
+        List<PTORequest> ptoRequests = ptoRequestService.findAllUnapproved();
+
+        if (ptoRequests == null){
+            ptoRequests = new ArrayList<>();
+        }
+
+        theModel.addAttribute("requests", ptoRequests);
+
+        return "view-time-off-requests";
+    }
+
+    @GetMapping("/approveDenyTimeOff")
+    public String approveDenyTimeOff(@RequestParam("ptoRequestId") int requestId, @RequestParam("approved") boolean approved){
+        PTORequest ptoRequest = ptoRequestService.findById(requestId);
+
+        if(!approved){
+            ptoRequestService.denyRequest(ptoRequest);
+            return "redirect:/manage/timeOff";
+        }
+
+        ptoRequest.setApproved(1);
+        ptoRequestService.save(ptoRequest);
+
+        return "redirect:/manage/timeOff";
     }
 }

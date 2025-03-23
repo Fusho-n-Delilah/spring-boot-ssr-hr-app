@@ -10,6 +10,8 @@ public interface PTORequestDAO {
 
 //    void delete(PTORequest request);
 
+    PTORequest findById(int id);
+
     List<PTORequest> findAll();
 
     List<PTORequest> findAllUnapproved();
@@ -17,5 +19,7 @@ public interface PTORequestDAO {
     List<PTORequest> findAllByEmpIdSortApprovedDesc(int id);
 
     PTORequest findByEmpIdAndFromDate(int id, LocalDate fromDate);
+
+    void delete(PTORequest ptoRequest);
 
 }

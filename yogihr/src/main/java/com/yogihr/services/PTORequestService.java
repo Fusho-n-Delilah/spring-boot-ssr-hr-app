@@ -10,7 +10,11 @@ import java.util.List;
 public interface PTORequestService {
     void save(WebPTORequest request);
 
+    void save(PTORequest request);
+
 //    void delete(PTORequest request);
+
+    PTORequest findById(int id);
 
     List<PTORequest> findAll();
 
@@ -19,4 +23,6 @@ public interface PTORequestService {
     List<PTORequest> findAllByEmpIdSortApprovedDesc(int id);
 
     PTORequest findByEmpIdAndFromDate(int id, LocalDate fromDate);
+
+    void denyRequest(PTORequest request);
 }

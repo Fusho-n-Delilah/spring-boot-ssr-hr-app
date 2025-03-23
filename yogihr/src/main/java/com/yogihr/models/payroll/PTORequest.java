@@ -14,7 +14,7 @@ public class PTORequest {
     private int id;
 
     @Column(name = "emp_no")
-    private int employeeNumber;
+    private int employeeId;
 
     @Column(name = "from_date")
     private LocalDate fromDate;
@@ -26,13 +26,13 @@ public class PTORequest {
     private Double totalHours;
 
     @Column(name = "approved")
-    private boolean approved;
+    private int approved;
 
     public PTORequest() {
     }
 
-    public PTORequest(int employeeNumber, LocalDate fromDate, LocalDate toDate, Double totalHours, boolean approved) {
-        this.employeeNumber = employeeNumber;
+    public PTORequest(int employeeId, LocalDate fromDate, LocalDate toDate, Double totalHours, int approved) {
+        this.employeeId = employeeId;
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.totalHours = totalHours;
@@ -48,12 +48,12 @@ public class PTORequest {
     }
 
 
-    public int getEmployeeNumber() {
-        return employeeNumber;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployeeNumber(int employeeNumber) {
-        this.employeeNumber = employeeNumber;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public LocalDate getFromDate() {
@@ -80,11 +80,11 @@ public class PTORequest {
         this.totalHours = totalHours;
     }
 
-    public boolean isApproved() {
+    public int isApproved() {
         return approved;
     }
 
-    public void setApproved(boolean approved) {
+    public void setApproved(int approved) {
         this.approved = approved;
     }
 
@@ -93,6 +93,6 @@ public class PTORequest {
         return  "From: " + fromDate +
                 "    To: " + toDate +
                 "    Total hours: " + totalHours +
-                "    Approved: " + ((approved) ? "Yes" : "No");
+                "    Approved: " + ((approved == 1) ? "Yes" : "No");
     }
 }
