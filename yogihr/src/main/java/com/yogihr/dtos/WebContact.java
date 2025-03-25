@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class WebContact {
+
+    private int employeeId;
+
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
     @Size(max = 50, message = "is too long")
@@ -52,6 +55,7 @@ public class WebContact {
     }
 
     public WebContact(Contact contact){
+        this.employeeId = contact.getId();
         this.workEmail = contact.getWorkEmail();
         this.personalEmail = contact.getPersonalEmail();
         this.phoneNumber = contact.getPhoneNumber();
@@ -60,6 +64,14 @@ public class WebContact {
         this.city = contact.getCity();
         this.state = contact.getState();
         this.postalCode = contact.getPostalCode();
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getWorkEmail() {
@@ -125,4 +137,5 @@ public class WebContact {
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
+
 }

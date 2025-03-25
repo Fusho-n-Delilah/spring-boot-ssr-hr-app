@@ -2,15 +2,17 @@ package com.yogihr.controllers;
 
 import com.yogihr.dtos.WebContact;
 import com.yogihr.dtos.WebPTORequest;
+import com.yogihr.dtos.WebTimeSheet;
+import com.yogihr.dtos.WebWorkHours;
 import com.yogihr.models.employee.Contact;
 import com.yogihr.models.employee.Department;
 import com.yogihr.models.employee.Employee;
 import com.yogihr.models.employee.Title;
-import com.yogihr.models.payroll.PTORequest;
-import com.yogihr.models.payroll.Salary;
-import com.yogihr.models.payroll.SalaryInfo;
+import com.yogihr.models.payroll.*;
+import com.yogihr.repositories.payroll.PayrollDAO;
 import com.yogihr.services.EmployeeService;
 import com.yogihr.services.PTORequestService;
+import com.yogihr.services.PayrollService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -37,9 +41,14 @@ public class EmployeeController {
     private EmployeeService employeeService;
     private PTORequestService ptoRequestService;
 
-    public EmployeeController(EmployeeService employeeService, PTORequestService ptoRequestService){
+    private PayrollService payrollService;
+
+    public EmployeeController(EmployeeService employeeService,
+                              PTORequestService ptoRequestService,
+                              PayrollService payrollService){
         this.employeeService = employeeService;
         this.ptoRequestService = ptoRequestService;
+        this.payrollService = payrollService;
     }
 
     @InitBinder
@@ -76,22 +85,8 @@ public class EmployeeController {
             return "employee-contact-info";
         }
 
-        //no errors, so lets set the employee's contact to the new contact
-        employee.setContact(new Contact(employee.getId(),
-                                        webContact.getWorkEmail(),
-                                        webContact.getPersonalEmail(),
-                                        webContact.getPhoneNumber(),
-                                        webContact.getStreetAddress(),
-                                        webContact.getApt(),
-                                        webContact.getCity(),
-                                        webContact.getState(),
-                                        webContact.getPostalCode()));
-
-        //now let's persist the employee
-        employeeService.save(employee);
-
-        //add the employee to the model
-//        theModel.addAttribute("employee", employee);
+        // no errors so update contact info
+        employeeService.save(webContact);
 
         //send 'em back to the homepage if successful
         return "redirect:/home";
@@ -198,5 +193,79 @@ public class EmployeeController {
         ptoRequestService.save(ptoRequest);
 
         return "redirect:/employee/timeOff";
+    }
+
+    @GetMapping("/timeSheet")
+    public String editTimeSheet(Model theModel, HttpSession session){
+
+        //get the employee
+        Employee employee = (Employee) session.getAttribute("employee");
+
+        //get the payperiod
+        PayPeriod payPeriod = payrollService.findPayPeriodByCurrentDate();
+
+        // init web Workhours
+        List<WebWorkHours> workHours = new ArrayList<>();
+
+        //Check if they have a submitted timesheet
+        List<TimeSheet> existingTimesheets = payrollService.findTimeSheetByEmployeeIdAndPayPeriod(employee.getId(), payPeriod.getId());
+
+        //if there isn't one create a blank one, else fill with the existing data
+        if(existingTimesheets.isEmpty()){
+            System.out.println("no timesheet found");
+
+            //create web work hours and timesheet
+            LocalDate start = payPeriod.getFromDate();
+            LocalDate end = payPeriod.getToDate();
+
+            while (!start.isAfter(end)){
+                workHours.add(new WebWorkHours(employee.getId(), start, payPeriod.getId()));
+
+                start = start.plusDays(1);
+            }
+        } else {
+            System.out.println("There's an existing timesheet");
+            System.out.println(existingTimesheets.get(0));
+            System.out.println(existingTimesheets.get(0).getWorkHours());
+
+            //get list of WorkHours
+            List<WorkHours> dbWorkHours = existingTimesheets.get(0).getWorkHours();
+
+            dbWorkHours.forEach(wh -> {
+                workHours.add(new WebWorkHours(wh.getEmployeeId(), wh.getDate(), wh.getHours(), wh.getPayPeriod()));
+            });
+        }
+
+        // int
+        WebTimeSheet timeSheet = new WebTimeSheet(employee.getId(), payPeriod.getId(), workHours);
+
+        //add to the model
+        theModel.addAttribute("webTimeSheet", timeSheet);
+        theModel.addAttribute("employee", employee);
+        theModel.addAttribute("week1", ("Week of " + payPeriod.getFromDate().getMonthValue() + "/" + payPeriod.getFromDate().getDayOfMonth()));
+        theModel.addAttribute("week2", ("Week of " + payPeriod.getFromDate().getMonthValue() + "/" + payPeriod.getFromDate().plusDays(7).getDayOfMonth()));
+
+        return "update-timesheet";
+    }
+
+    @PostMapping("/submitTimeSheet")
+    public String submitTimeSheet(@Valid @ModelAttribute("webTimeSheet") WebTimeSheet timeSheet,
+                                  BindingResult bindingResult,
+                                  Model theModel){
+
+        //form validation
+        if(bindingResult.hasErrors()){
+            //add the dates for headers to the model
+            PayPeriod payPeriod = payrollService.findPayPeriodByCurrentDate();
+            theModel.addAttribute("week1", ("Week of " + payPeriod.getFromDate().getMonthValue() + "/" + payPeriod.getFromDate().getDayOfMonth()));
+            theModel.addAttribute("week2", ("Week of " + payPeriod.getFromDate().getMonthValue() + "/" + payPeriod.getFromDate().plusDays(7).getDayOfMonth()));
+
+            //return to the view
+            return "update-timesheet";
+        }
+
+        payrollService.save(timeSheet);
+
+        return "redirect:/home";
     }
 }

@@ -22,7 +22,7 @@
                         <a class="nav-link text-white rounded-pill active" aria-current="page" th:href="@{/home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Time Management</a>
+                        <a class="nav-link" th:href="@{/employee/timeSheet}">Time Management</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/employee/timeOff}">Time-Off Request</a>
@@ -43,12 +43,22 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item disabled" href="#">View Pay Stubs</a></li>
                             <li><a class="dropdown-item" th:href="@{/employee/payRate}">Pay Rates</a></li>
+                            <li sec:authorize="hasRole('HR')"><a th:href="@{/manage/timeSheets}" class="dropdown-item">Approve Time Sheets</a></li>
                             <li sec:authorize="hasRole('HR')"><a href="#" class="dropdown-item">Process Payroll</a></li>
-                            <li sec:authorize="hasRole('HR')"><a th:href="@{/manage/timeOff}" class="dropdown-item">Approve Time Off</a></li>
+
                         </ul>
                     </li>
-                    <li sec:authorize="hasRole('HR')" class="nav-item">
-                        <a th:href="@{/manage/list}" class="nav-link">Manage Employees</a>
+<!--                    <li sec:authorize="hasRole('HR')" class="nav-item">-->
+<!--                        <a th:href="@{/manage/list}" class="nav-link">Manage Employees</a>-->
+<!--                    </li>-->
+                    <li sec:authorize="hasRole('HR')" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Manage Employees
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li sec:authorize="hasRole('HR')"><a th:href="@{/manage/list}"  class="dropdown-item">Update Employee Info</a></li>
+                            <li sec:authorize="hasRole('HR')"><a th:href="@{/manage/timeOff}" class="dropdown-item">Approve Time Off</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">Documents</a>
@@ -82,7 +92,7 @@
                     <div class="card d-flex flex-column align-items-center p-3 text-center shadow">
                         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24"><path d="M15.91 13.34l2.636-4.026-.454-.406-3.673 3.099c-.675-.138-1.402.068-1.894.618-.736.823-.665 2.088.159 2.824.824.736 2.088.665 2.824-.159.492-.55.615-1.295.402-1.95zm-3.91-10.646v-2.694h4v2.694c-1.439-.243-2.592-.238-4 0zm8.851 2.064l1.407-1.407 1.414 1.414-1.321 1.321c-.462-.484-.964-.927-1.5-1.328zm-18.851 4.242h8v2h-8v-2zm-2 4h8v2h-8v-2zm3 4h7v2h-7v-2zm21-3c0 5.523-4.477 10-10 10-2.79 0-5.3-1.155-7.111-3h3.28c1.138.631 2.439 1 3.831 1 4.411 0 8-3.589 8-8s-3.589-8-8-8c-1.392 0-2.693.369-3.831 1h-3.28c1.811-1.845 4.321-3 7.111-3 5.523 0 10 4.477 10 10z"/></svg>
                         <h5 class="mt-3">Time Management</h5>
-                        <a href="#" class="nav-link mb-4">Time Management</a>
+                        <a th:href="@{/employee/timeSheet}" class="nav-link mb-4">Submit Time Sheet</a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
@@ -112,16 +122,16 @@
                     <div class="card d-flex flex-column align-items-center p-3 text-center shadow">
                         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100" height="100" viewBox="0 0 1800 1800" style="shape-rendering:geometricPrecision;text-rendering:geometricPrecision;image-rendering:optimizeQuality;fill-rule:evenodd;clip-rule:evenodd"><defs><style>.fil0,.fil1{fill:#212121;fill-rule:nonzero}.fil0{fill:#0d6efd}</style></defs><g id="Layer_x0020_1"><path class="fil0" d="M914.026 1190.48h26.676c6.468 0 12.338 2.56 16.654 6.72 10.778 8.65 22.026 15.553 33.59 20.221 10.69 4.316 21.75 6.685 33.054 6.685 11.304 0 22.363-2.37 33.054-6.685 12.089-4.88 23.832-12.203 35.055-21.41l15.188 18.469-15.222-18.555a23.907 23.907 0 0 1 15.222-5.445h26.677c60.94 0 116.324 24.914 156.459 65.05 40.136 40.136 65.048 95.519 65.048 156.457v118.506c0 13.255-10.746 24-24 24H716.518c-13.255 0-24-10.745-24-24v-118.506c0-60.939 24.913-116.323 65.05-156.458 40.134-40.135 95.518-65.049 156.457-65.049zm18.514 48h-18.514c-47.69 0-91.062 19.528-122.521 50.987-31.46 31.459-50.987 74.832-50.987 122.521v94.506h566.963v-94.506c0-47.688-19.527-91.062-50.986-122.521-31.459-31.459-74.832-50.987-122.52-50.987h-18.516c-12.906 9.74-26.474 17.68-40.592 23.379-16.388 6.615-33.403 10.247-50.868 10.247-17.465 0-34.48-3.632-50.868-10.247-14.117-5.699-27.687-13.64-40.592-23.379zM1024 680.279c64.364 0 122.926 15.709 164.627 49.055 38.919 31.122 62.682 76.53 62.682 137.52 0 65.495-28.693 153.022-74.099 218.895-39.863 57.834-93.189 100.067-153.21 100.067-60.02 0-113.347-42.233-153.21-100.067-45.405-65.873-74.099-153.4-74.099-218.894 0-60.991 23.764-106.4 62.683-137.521 41.701-33.346 100.263-49.055 164.627-49.055zm134.813 86.368c-32.616-26.08-80.7-38.368-134.813-38.368-54.113 0-102.197 12.287-134.813 38.368-27.626 22.092-44.496 55.107-44.496 100.207 0 56.866 25.355 133.501 65.475 191.707 31.572 45.805 71.65 79.253 113.835 79.253 42.185 0 82.263-33.448 113.835-79.253 40.12-58.206 65.474-134.842 65.474-191.707 0-45.1-16.87-78.116-44.495-100.207z"/><path class="fil1" d="M1471.79 875.317h18.93a23.92 23.92 0 0 1 16.61 6.68c6.98 5.544 14.223 9.966 21.627 12.955 6.758 2.728 13.74 4.226 20.867 4.226 7.126 0 14.11-1.498 20.868-4.226 7.907-3.192 15.632-8.019 23.05-14.104l15.187 18.469-15.223-18.554a23.894 23.894 0 0 1 15.223-5.446h18.929c45.165 0 86.208 18.46 115.947 48.198 29.738 29.74 48.199 70.783 48.199 115.948v84.089c0 13.254-10.746 24-24 24h-436.36c-13.254 0-24-10.746-24-24v-84.089c0-45.165 18.46-86.208 48.2-115.947 29.737-29.739 70.782-48.2 115.947-48.2zm10.874 48h-10.874c-31.913 0-60.947 13.075-82.009 34.137-21.062 21.062-34.137 50.095-34.137 82.01v60.088h388.36v-60.089c0-31.915-13.075-60.947-34.136-82.01-21.063-21.061-50.096-34.136-82.009-34.136h-10.874c-9.069 6.632-18.584 12.078-28.48 16.072-12.453 5.028-25.393 7.789-38.68 7.789-13.287 0-26.228-2.76-38.681-7.789-9.896-3.994-19.41-9.441-28.48-16.072zM1549.82 493.507c47.16 0 90.235 11.643 121.143 36.36 29.256 23.394 47.119 57.415 47.119 102.998 0 47.726-20.847 111.415-53.831 159.268-29.49 42.785-69.252 74.028-114.431 74.028s-84.942-31.242-114.432-74.026c-32.984-47.855-53.83-111.543-53.83-159.27 0-45.583 17.863-79.603 47.119-102.997 30.908-24.717 73.984-36.36 121.143-36.36zm91.33 73.674c-21.824-17.452-54.422-25.674-91.33-25.674s-69.506 8.222-91.33 25.674c-17.963 14.364-28.932 35.991-28.932 65.684 0 39.099 17.506 91.896 45.205 132.083 21.199 30.755 47.712 53.214 75.057 53.214s53.857-22.46 75.056-53.215c27.7-40.186 45.206-92.983 45.206-132.082 0-29.693-10.969-51.32-28.932-65.685zM420.144 875.317h18.93a23.92 23.92 0 0 1 16.61 6.68c6.98 5.544 14.223 9.966 21.626 12.955 6.759 2.728 13.743 4.226 20.868 4.226 7.127 0 14.11-1.498 20.868-4.226 7.907-3.192 15.632-8.019 23.05-14.104l15.187 18.469-15.223-18.554a23.894 23.894 0 0 1 15.223-5.446H576.214c45.164 0 86.207 18.46 115.947 48.198 29.737 29.74 48.198 70.783 48.198 115.948v84.089c0 13.254-10.746 24-24 24H280c-13.254 0-24-10.746-24-24v-84.089c0-45.165 18.46-86.208 48.199-115.948 29.739-29.737 70.782-48.198 115.947-48.198zm10.874 48h-10.874c-31.913 0-60.946 13.075-82.009 34.136-21.061 21.063-34.136 50.096-34.136 82.01v60.089h388.36v-60.089c0-31.915-13.075-60.947-34.136-82.01-21.063-21.061-50.095-34.136-82.009-34.136H565.34c-9.069 6.632-18.584 12.078-28.48 16.072-12.453 5.028-25.394 7.789-38.68 7.789-13.288 0-26.228-2.76-38.681-7.789-9.896-3.994-19.41-9.441-28.48-16.072zM498.179 493.507c47.16 0 90.235 11.643 121.143 36.36 29.256 23.394 47.119 57.415 47.119 102.998 0 47.726-20.847 111.415-53.83 159.27-29.491 42.784-69.254 74.026-114.432 74.026-45.18 0-84.941-31.244-114.431-74.028-32.985-47.854-53.831-111.542-53.831-159.268 0-45.583 17.863-79.604 47.119-102.998 30.908-24.717 73.984-36.36 121.143-36.36zm91.33 73.674c-21.824-17.452-54.422-25.674-91.33-25.674s-69.506 8.222-91.33 25.674c-17.963 14.364-28.932 35.991-28.932 65.684 0 39.099 17.506 91.896 45.206 132.082 21.199 30.755 47.711 53.215 75.056 53.215s53.858-22.459 75.057-53.213c27.699-40.187 45.205-92.985 45.205-132.083 0-29.693-10.969-51.32-28.932-65.685z"/></g><path style="fill:none" d="M0 0h2048v2048H0z"/></svg>
                         <h5 class="mt-3">Manage Employees</h5>
-                        <a th:href="@{/manage/list}" class="nav-link mb-4">Update Employee Info</a>
-<!--                        <a href="#" class="nav-link">Pay Rates</a>-->
+                        <a th:href="@{/manage/list}" class="nav-link">Update Employee Info</a>
+                        <a th:href="@{/manage/timeOff}" class="nav-link">Approve Time Off</a>
                     </div>
                 </div>
                 <div sec:authorize="hasRole('HR')" class="col-lg-3 col-md-6 mb-4">
                     <div class="card d-flex flex-column align-items-center p-3 text-center shadow">
                         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 48 48"><path d="M41.09 46.5H6.91a1 1 0 0 1-1-1v-43a1 1 0 0 1 1-1h26.6a1 1 0 0 1 0 2H7.91v41h32.18V10.08a1 1 0 1 1 2 0V45.5a1 1 0 0 1-1 1z"/><path d="M41.09 11.08a1 1 0 0 1-.71-.29L32.8 3.21a1 1 0 0 1 1.42-1.42l7.58 7.58a1 1 0 0 1 0 1.42 1 1 0 0 1-.71.29z"/><path d="M41.09 11.08h-7.58a1 1 0 0 1-1-1V2.5a1 1 0 0 1 1.71-.71l7.58 7.58a1 1 0 0 1-.71 1.71zm-6.58-2h4.17l-4.17-4.17zM16.44 14.88c-2.64 0-4.71-1.55-4.71-3.53s2.07-3.54 4.71-3.54c2.4 0 4.41 1.35 4.67 3.13a1 1 0 0 1-.84 1.14 1 1 0 0 1-1.13-.84c-.11-.69-1.21-1.43-2.7-1.43s-2.71.82-2.71 1.54 1.11 1.53 2.71 1.53a1 1 0 0 1 0 2z"/><path d="M16.44 20C14 20 12 18.62 11.76 16.83a1 1 0 0 1 2-.29c.1.69 1.21 1.43 2.7 1.43s2.7-.82 2.7-1.55-1.11-1.54-2.7-1.54a1 1 0 0 1 0-2c2.64 0 4.7 1.56 4.7 3.54S19.08 20 16.44 20z"/><path d="M16.44 21.94a1 1 0 0 1-1-1V6.84a1 1 0 0 1 2 0v14.1a1 1 0 0 1-1 1zM30.75 8.59H23.1a1 1 0 0 1 0-2h7.65a1 1 0 0 1 0 2zM30.75 11.93H23.1a1 1 0 0 1 0-2h7.65a1 1 0 0 1 0 2zM38.27 15.27H23.1a1 1 0 0 1 0-2h15.17a1 1 0 0 1 0 2zM38.27 18.6H23.1a1 1 0 0 1 0-2h15.17a1 1 0 0 1 0 2zM38.27 21.94H23.1a1 1 0 0 1 0-2h15.17a1 1 0 0 1 0 2zM38.27 25.27H10.36a1 1 0 1 1 0-2h27.91a1 1 0 0 1 0 2zM38.27 28.61H10.36a1 1 0 0 1 0-2h27.91a1 1 0 0 1 0 2zM38.27 32H10.36a1 1 0 0 1 0-2h27.91a1 1 0 0 1 0 2zM38.27 35.28H10.36a1 1 0 0 1 0-2h27.91a1 1 0 1 1 0 2zM38.27 38.62H10.36a1 1 0 0 1 0-2h27.91a1 1 0 0 1 0 2zM38.27 42H10.36a1 1 0 0 1 0-2h27.91a1 1 0 0 1 0 2z"/></svg>
                         <h5 class="mt-3">Company Financial</h5>
+                        <a th:href="@{/manage/timeSheets}" class="nav-link">Approve Time Sheets</a>
                         <a href="#" class="nav-link">Process Payroll</a>
-                        <a th:href="@{/manage/timeOff}" class="nav-link">Approve Time Off</a>
                     </div>
                 </div>
             </div>
@@ -136,7 +146,7 @@
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <a href="#" class="nav-link">Time Management</a>
+                            <a th:href="@{/employee/timeSheet}" class="nav-link">Submit Time Sheet</a>
                         </div>
                     </div>
                 </div>
@@ -187,6 +197,7 @@
                     <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <a th:href="@{/manage/list}" class="nav-link">Update Employee Info</a>
+                            <a th:href="@{/manage/timeOff}" class="nav-link">Approve Time Off</a>
                         </div>
                     </div>
                 </div>
@@ -199,7 +210,7 @@
                     <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <a href="#" class="nav-link">Process Payroll</a>
-                            <a href="#" class="nav-link">Approve Time Off</a>
+                            <a th:href="@{/manage/timeSheets}" class="nav-link">Approve Time Sheets</a>
                         </div>
                     </div>
                 </div>

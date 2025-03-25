@@ -16,6 +16,8 @@ public interface PTORequestDAO {
 
     List<PTORequest> findAllUnapproved();
 
+    List<PTORequest> findAllApproved();
+
     List<PTORequest> findAllByEmpIdSortApprovedDesc(int id);
 
     PTORequest findByEmpIdAndFromDate(int id, LocalDate fromDate);

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Timesheet</title>
+
+  <!-- CSS files -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/utility.css}"/>
+</head>
+<body class="bg-light">
+  <div class="container">
+    <h2 class="ms-5 my-4">Submit Time Sheet</h2>
+    <div class="bg-white shadow">
+      <div class="bg-white mb-5 p-5 shadow">
+        <form action="#" th:action="@{/employee/submitTimeSheet}"
+              th:object="${webTimeSheet}"
+              method="POST" class="form-horizontal">
+
+          <fieldset>
+              <input type="hidden" th:field="*{employeeId}"/>
+              <input type="hidden" th:field="*{payPeriod}">
+
+              <!-- Binding Result errors-->
+              <div th:each="hours, stat : *{workHours}">
+                  <div th:if="${#fields.hasErrors('workHours[__${stat.index}__].hours')}"
+                       style="margin-bottom: 25px" class="text-danger">
+                      <ul>
+                          <li th:each="err : ${#fields.errors('workHours[__${stat.index}__].hours')}" th:text="*{workHours[__${stat.index}__].date} + ': ' + ${err}" />
+                      </ul>
+                  </div>
+              </div>
+
+
+              <!-- Week One -->
+              <h2 class="bg-dark text-white py-2 ps-2 h4" th:text="${week1}"/>
+              <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                      <tr>
+                          <th>Date</th>
+                          <th>Hours</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="hours, stat : *{workHours}" th:if="${stat.index} < 7">
+                      <td th:text="${#temporals.dayOfWeekName(hours.date) + ' ' + #temporals.month(hours.date) + '/' + #temporals.day(hours.date)}"></td>
+                      <td><input type="number" step="0.1" th:field="*{workHours[__${stat.index}__].hours}" class="form-control"/></td>
+                        <input type="hidden" th:field="*{workHours[__${stat.index}__].employeeId}"/>
+                        <input type="hidden" th:field="*{workHours[__${stat.index}__].date}"/>
+                        <input type="hidden" th:field="*{workHours[__${stat.index}__].payPeriod}"/>
+                    </tr>
+                  </tbody>
+              </table>
+
+              <!-- Second Week -->
+              <h2 class="bg-dark text-white py-2 ps-2 h4" th:text="${week2}"/>
+              <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                  <tr>
+                      <th>Date</th>
+                      <th>Hours</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each="hours, stat : *{workHours}" th:if="${stat.index} >= 7">
+                      <td th:text="${#temporals.dayOfWeekName(hours.date) + ' ' + #temporals.month(hours.date) + '/' + #temporals.day(hours.date)}"></td>
+                      <td>
+                          <input type="number" step="0.1" th:field="*{workHours[__${stat.index}__].hours}" class="form-control"/>
+                      </td>
+
+
+                      <input type="hidden" th:field="*{workHours[__${stat.index}__].employeeId}"/>
+                      <input type="hidden" th:field="*{workHours[__${stat.index}__].date}"/>
+                      <input type="hidden" th:field="*{workHours[__${stat.index}__].payPeriod}"/>
+                  </tr>
+                  </tbody>
+              </table>
+
+              <!-- Update and Cancel Button -->
+              <div style="margin-top: 30px" class="form-group">
+                  <div class="col-sm-6 controls">
+                      <a th:href="@{/home}" class="btn btn-light shadow-sm me-3">Cancel</a>
+                      <button type="submit" class="btn btn-primary shadow-sm">Submit</button>
+                  </div>
+              </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer>
+      <div class="bg-dark text-white">
+          <div class="container">
+              <div class="row row-cols-1">
+                  <div class="col text-center">
+                      <p class="pt-4 c-statement">
+                          <small>&copy; Fusho Designs<br>
+                              All Rights Reserved. <br>
+                              Site Developed by <a href="https://github.com/Fusho-n-Delilah/" target="_blank">Alec Feldhaus</a>
+                          </small>
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+</body>
+</html>

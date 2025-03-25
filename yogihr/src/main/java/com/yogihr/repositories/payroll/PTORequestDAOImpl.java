@@ -49,6 +49,15 @@ public class PTORequestDAOImpl implements PTORequestDAO{
     }
 
     @Override
+    public List<PTORequest> findAllApproved() {
+        TypedQuery<PTORequest> query = entityManager.createQuery(
+                "SELECT r FROM PTORequest r "
+                        + "WHERE r.approved = 1", PTORequest.class);
+
+        return query.getResultList();
+    }
+
+    @Override
     public List<PTORequest> findAllByEmpIdSortApprovedDesc(int id) {
         TypedQuery<PTORequest> query = entityManager.createQuery(
                 "SELECT r FROM PTORequest r "

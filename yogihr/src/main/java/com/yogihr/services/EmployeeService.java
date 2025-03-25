@@ -1,5 +1,7 @@
 package com.yogihr.services;
 
+import com.yogihr.dtos.WebContact;
+import com.yogihr.dtos.WebEmployee;
 import com.yogihr.models.employee.Employee;
 
 import java.util.List;
@@ -22,4 +24,8 @@ public interface EmployeeService {
     Employee findEmployeeWithSalaryInfo(Employee employee);
 
     void save(Employee employee);
+
+    void save(WebEmployee webEmployee);
+
+    void save(WebContact webContact);
 }
