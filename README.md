@@ -4,7 +4,8 @@
 
 ![YogiHR](https://github.com/user-attachments/assets/58cf3cc8-ba6d-4e69-8d83-1fe06f97f6b9)
 
-#Setup
+<h3>Setup</h3>
+<br>
 If you would like to play around with this app there are a few steps you must complete first.
 
 Download MySql:
@@ -14,7 +15,7 @@ Run the Scripts included:
 In the SQL scripts folder you will find all the scripts to create and populate the tables to work with this application
 
 
-#Limitations
+<h3>Limitations</h3>
 This applicaiton has a few inherant limitations: 
   1.) It only supports basic timesheets. This was a design choice for ease of implementation
   2.) This app only supports business in the following States: Alaska, Florida, Nevada, South Dakota, Tennessee, Texas, Washington, and Wyoming. These states have no income tax
@@ -22,7 +23,7 @@ This applicaiton has a few inherant limitations:
   4.) pagination will be added in the next iteration of this application
   5.) The app would be better served implementing HTMX, and as i developed I realized this would be the approach I'd prefer for a server-side rendered application for the performance increase and ease of dev
 
-#Walkthrough
+<h2>Walkthrough<h2/>
 
 homepage:
 
@@ -32,7 +33,7 @@ when a regular employee logs in they are greeted with the homepage
 the navigation is based on role based access, and someone with an HR role sees the additional functionality
 ![image](https://github.com/user-attachments/assets/ec8d2a4c-41ab-4bf9-9eee-b6a0136bd7a3)
 
-User Functionality:
+<h3>User Functionality:</h3>
 
 a user is able to do all the general functions that you would expect such as: view their salary info, request time off, submit their time sheets, change their contact information, and view their pay stubs.
 
@@ -56,7 +57,7 @@ The user can view their year-to-date totals easily
 The user can view a breakdown of their current pay stub. a doughnut chart shows an easy to understand breakdown of the totals
 
 
-HR functionality:
+<h3>HR functionality:</h3>
 
 HR is able to approve timesheets and Pto requests, edit all employee information, and process payroll.
 
