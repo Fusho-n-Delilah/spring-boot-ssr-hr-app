@@ -17,11 +17,13 @@ In the SQL scripts folder you will find all the scripts to create and populate t
 
 <h3>Limitations</h3>
 This applicaiton has a few inherant limitations: 
-  1.) It only supports basic timesheets. This was a design choice for ease of implementation
-  2.) This app only supports business in the following States: Alaska, Florida, Nevada, South Dakota, Tennessee, Texas, Washington, and Wyoming. These states have no income tax
-  3.) The application itself uses responsive bootstrap components. However, it has not currently been optimized everywhere for mobile use. It would generally be frowned upon to process payroll from a phone.
-  4.) pagination will be added in the next iteration of this application
-  5.) The app would be better served implementing HTMX, and as i developed I realized this would be the approach I'd prefer for a server-side rendered application for the performance increase and ease of dev
+<ol>
+ <li>It only supports basic timesheets. This was a design choice for ease of implementation</li>
+ <li>This app only supports business in the following States: Alaska, Florida, Nevada, South Dakota, Tennessee, Texas, Washington, and Wyoming. These states have no income tax</li>
+ <li>The application itself uses responsive bootstrap components. However, it has not currently been optimized everywhere for mobile use. It would generally be frowned upon to process payroll from a phone</li>
+ <li>pagination will be added in the next iteration of this application</li>
+ <li>The app would be better served implementing HTMX, and as i developed I realized this would be the approach I'd prefer for a server-side rendered application for the performance increase and ease of development</li>
+</ol>
 
 <h2>Walkthrough<h2/>
 
