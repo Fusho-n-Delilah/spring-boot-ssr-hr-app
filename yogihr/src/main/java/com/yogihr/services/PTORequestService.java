@@ -3,6 +3,7 @@ package com.yogihr.services;
 
 import com.yogihr.dtos.WebPTORequest;
 import com.yogihr.models.payroll.PTORequest;
+import com.yogihr.models.payroll.PayPeriod;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,4 +26,5 @@ public interface PTORequestService {
     PTORequest findByEmpIdAndFromDate(int id, LocalDate fromDate);
 
     void denyRequest(PTORequest request);
+
 }

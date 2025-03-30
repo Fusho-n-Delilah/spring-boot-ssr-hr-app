@@ -221,4 +221,45 @@ public class ManageController {
 
         return "redirect:/manage/timeSheets";
     }
+
+    @GetMapping("/payPeriods")
+    public String viewPayPeriods(@RequestParam(value = "year", required = false) String year,
+                                    Model theModel){
+
+        //get a list of all payperiods in the selected year.
+        List<PayPeriod> payPeriodList = null;
+
+        if (year != null){
+            payPeriodList = payrollService.findPayPeriodsByYear(Integer.parseInt(year));
+            theModel.addAttribute("selectedYear", year);
+        } else {
+            payPeriodList = payrollService.findPayPeriodsByYear(LocalDate.now().getYear());
+        }
+
+        //get a list of all available years for a user to cheange selection
+        List<Integer>  years = payrollService.getPayPeriodYears();
+
+        //add to the model
+        theModel.addAttribute("payPeriods", payPeriodList);
+        theModel.addAttribute("years", years);
+
+        return "list-pay-periods";
+    }
+
+    @GetMapping("/processPayroll")
+    public String processPayroll(@RequestParam("payPeriod") int payPeriodId, Model theModel){
+
+        //get PayPeriod by id
+        PayPeriod payPeriodForProcessing = payrollService.findPayPeriodById(payPeriodId);
+
+        //call the service
+        boolean success = payrollService.processPayroll(payPeriodForProcessing);
+
+        if(success){
+            return "redirect:/manage/payPeriods";
+        }
+
+        return "redirect:/home";
+    }
+
 }

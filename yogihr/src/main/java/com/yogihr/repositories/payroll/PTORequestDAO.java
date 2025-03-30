@@ -20,6 +20,8 @@ public interface PTORequestDAO {
 
     List<PTORequest> findAllByEmpIdSortApprovedDesc(int id);
 
+    List<PTORequest> findAllApprovedByEmpIDAndDateRange(int id, LocalDate fromDate, LocalDate toDate);
+
     PTORequest findByEmpIdAndFromDate(int id, LocalDate fromDate);
 
     void delete(PTORequest ptoRequest);

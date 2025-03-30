@@ -2,9 +2,9 @@ package com.yogihr.services;
 
 import com.yogihr.dtos.WebTimeSheet;
 import com.yogihr.models.employee.Employee;
-import com.yogihr.models.payroll.PayPeriod;
-import com.yogihr.models.payroll.TimeSheet;
+import com.yogihr.models.payroll.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PayrollService {
@@ -20,7 +20,27 @@ public interface PayrollService {
 
     PayPeriod findPayPeriodByCurrentDate();
 
+    List<PayPeriod> findPayPeriodsByYear(int year);
+
+    List<Integer> getPayPeriodYears();
+
     List<TimeSheet> findTimeSheetByEmployeeIdAndPayPeriod(int id, int payPeriodId);
 
     List<TimeSheet> findAllUnapprovedTimeSheets();
+
+    List<TimeSheet> findAllApprovedTimeSheets(int payPeriodId);
+
+    Boolean processPayroll(PayPeriod payPeriodForProcessing);
+
+    Double getPTOHours(List<PTORequest> ptoRequests, LocalDate fromDate, LocalDate toDate);
+
+    void createPaycheck(double workHours, double ptoHours, Salary salary, SalaryInfo salaryInfo, PayPeriod payPeriod);
+
+    PayCheck findPayCheckById(int id);
+
+    PayCheck getYearToDateTotalsByEmpId(int id, int year);
+
+    List<PayCheck> findAllPayChecksByEmpId(int id);
+
+    List<PayCheck> findAllPayChecksByEmpIdAndYear(int id, int year);
 }

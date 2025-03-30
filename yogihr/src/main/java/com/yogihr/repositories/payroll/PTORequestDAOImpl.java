@@ -69,6 +69,24 @@ public class PTORequestDAOImpl implements PTORequestDAO{
     }
 
     @Override
+    public List<PTORequest> findAllApprovedByEmpIDAndDateRange(int id, LocalDate fromDate, LocalDate toDate) {
+        //this is an inherently bugged query
+        // what if the pto request spans weekends, or multiple pay periods? Solve this problem later
+        // test the happy path for now
+
+        TypedQuery<PTORequest> query = entityManager.createQuery(
+                "SELECT r FROM PTORequest r "
+                        + "WHERE r.employeeId = :data "
+                        + "AND ((r.fromDate BETWEEN :fromDate AND :toDate) OR (r.toDate BETWEEN :fromDate AND :toDate))", PTORequest.class);
+        query.setParameter("data", id);
+        query.setParameter("fromDate", fromDate);
+        query.setParameter("toDate", toDate);
+
+        return query.getResultList();
+    }
+
+
+    @Override
     public PTORequest findByEmpIdAndFromDate(int id, LocalDate fromDate) throws jakarta.persistence.NoResultException{
 
         TypedQuery<PTORequest> query = entityManager.createQuery(

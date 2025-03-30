@@ -25,8 +25,8 @@ public class PTORequestServiceImpl implements PTORequestService{
         PTORequest ptoRequest =  new PTORequest();
 
         //set some default data like total Hours
-        long daysBetween = ChronoUnit.DAYS.between(newRequest.getFromDate(), newRequest.getToDate());
-        double totalHours = 8.0 * daysBetween;
+        long daysOff = ChronoUnit.DAYS.between(newRequest.getFromDate(), newRequest.getToDate()) + 1;
+        double totalHours = 8.0 * daysOff;
 
         //assign the webPtoRequest details to a PTORequest Object
         ptoRequest.setEmployeeId(newRequest.getEmployeeNumber());

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
 
     <!-- CSS files -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -41,10 +41,10 @@
                             Payroll
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item disabled" href="#">View Pay Stubs</a></li>
+                            <li><a class="dropdown-item" th:href="@{/employee/payStubs}">View Pay Stubs</a></li>
                             <li><a class="dropdown-item" th:href="@{/employee/payRate}">Pay Rates</a></li>
                             <li sec:authorize="hasRole('HR')"><a th:href="@{/manage/timeSheets}" class="dropdown-item">Approve Time Sheets</a></li>
-                            <li sec:authorize="hasRole('HR')"><a href="#" class="dropdown-item">Process Payroll</a></li>
+                            <li sec:authorize="hasRole('HR')"><a th:href="@{/manage/payPeriods}" class="dropdown-item">Process Payroll</a></li>
 
                         </ul>
                     </li>
@@ -114,7 +114,7 @@
                     <div class="card d-flex flex-column align-items-center p-3 text-center shadow">
                         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"  viewBox="0 0 24 24"><path d="M17 12c-3.313 0-6 2.687-6 6s2.687 6 6 6 6-2.687 6-6-2.687-6-6-6zm.5 8.474v.526h-.5v-.499c-.518-.009-1.053-.132-1.5-.363l.228-.822c.478.186 1.114.383 1.612.27.574-.13.692-.721.057-1.005-.465-.217-1.889-.402-1.889-1.622 0-.681.52-1.292 1.492-1.425v-.534h.5v.509c.362.01.768.073 1.221.21l-.181.824c-.384-.135-.808-.257-1.222-.232-.744.043-.81.688-.29.958.856.402 1.972.7 1.972 1.773.001.858-.672 1.315-1.5 1.432zm1.624-10.179c1.132-.223 2.162-.626 2.876-1.197v.652c0 .499-.386.955-1.007 1.328-.581-.337-1.208-.6-1.869-.783zm-2.124-5.795c2.673 0 5-1.007 5-2.25s-2.327-2.25-5-2.25c-2.672 0-5 1.007-5 2.25s2.328 2.25 5 2.25zm.093-2.009c-.299-.09-1.214-.166-1.214-.675 0-.284.334-.537.958-.593v-.223h.321v.211c.234.005.494.03.784.09l-.116.342c-.221-.051-.467-.099-.708-.099l-.072.001c-.482.02-.521.287-.188.399.547.169 1.267.292 1.267.74 0 .357-.434.548-.967.596v.22h-.321v-.208c-.328-.003-.676-.056-.962-.152l.147-.343c.244.063.552.126.828.126l.208-.014c.369-.053.443-.3.035-.418zm-11.093 13.009c1.445 0 2.775-.301 3.705-.768.311-.69.714-1.329 1.198-1.899-.451-1.043-2.539-1.833-4.903-1.833-2.672 0-5 1.007-5 2.25s2.328 2.25 5 2.25zm.093-2.009c-.299-.09-1.214-.166-1.214-.675 0-.284.335-.537.958-.593v-.223h.321v.211c.234.005.494.03.784.09l-.117.342c-.22-.051-.466-.099-.707-.099l-.072.001c-.482.02-.52.287-.188.399.547.169 1.267.292 1.267.74 0 .357-.434.548-.967.596v.22h-.321v-.208c-.329-.003-.676-.056-.962-.152l.147-.343c.244.063.552.126.828.126l.208-.014c.368-.053.443-.3.035-.418zm4.003 8.531c-.919.59-2.44.978-4.096.978-2.672 0-5-1.007-5-2.25v-.652c1.146.918 3.109 1.402 5 1.402 1.236 0 2.499-.211 3.549-.611.153.394.336.773.547 1.133zm-9.096-3.772v-.651c1.146.917 3.109 1.401 5 1.401 1.039 0 2.094-.151 3.028-.435.033.469.107.926.218 1.37-.888.347-2.024.565-3.246.565-2.672 0-5-1.007-5-2.25zm0-2.5v-.652c1.146.918 3.109 1.402 5 1.402 1.127 0 2.275-.176 3.266-.509-.128.493-.21 1.002-.241 1.526-.854.298-1.903.483-3.025.483-2.672 0-5-1.007-5-2.25zm11-11v-.652c1.146.918 3.109 1.402 5 1.402 1.892 0 3.854-.484 5-1.402v.652c0 1.243-2.327 2.25-5 2.25-2.672 0-5-1.007-5-2.25zm0 5v-.652c.713.571 1.744.974 2.876 1.197-.661.183-1.287.446-1.868.783-.622-.373-1.008-.829-1.008-1.328zm0-2.5v-.651c1.146.917 3.109 1.401 5 1.401 1.892 0 3.854-.484 5-1.401v.651c0 1.243-2.327 2.25-5 2.25-2.672 0-5-1.007-5-2.25z"/></svg>
                         <h5 class="mt-3">Payroll</h5>
-                        <a href="#" class="nav-link">View Pay Stubs</a>
+                        <a th:href="@{/employee/payStubs}" class="nav-link">View Pay Stubs</a>
                         <a th:href="@{/employee/payRate}" class="nav-link">Pay Rates</a>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 48 48"><path d="M41.09 46.5H6.91a1 1 0 0 1-1-1v-43a1 1 0 0 1 1-1h26.6a1 1 0 0 1 0 2H7.91v41h32.18V10.08a1 1 0 1 1 2 0V45.5a1 1 0 0 1-1 1z"/><path d="M41.09 11.08a1 1 0 0 1-.71-.29L32.8 3.21a1 1 0 0 1 1.42-1.42l7.58 7.58a1 1 0 0 1 0 1.42 1 1 0 0 1-.71.29z"/><path d="M41.09 11.08h-7.58a1 1 0 0 1-1-1V2.5a1 1 0 0 1 1.71-.71l7.58 7.58a1 1 0 0 1-.71 1.71zm-6.58-2h4.17l-4.17-4.17zM16.44 14.88c-2.64 0-4.71-1.55-4.71-3.53s2.07-3.54 4.71-3.54c2.4 0 4.41 1.35 4.67 3.13a1 1 0 0 1-.84 1.14 1 1 0 0 1-1.13-.84c-.11-.69-1.21-1.43-2.7-1.43s-2.71.82-2.71 1.54 1.11 1.53 2.71 1.53a1 1 0 0 1 0 2z"/><path d="M16.44 20C14 20 12 18.62 11.76 16.83a1 1 0 0 1 2-.29c.1.69 1.21 1.43 2.7 1.43s2.7-.82 2.7-1.55-1.11-1.54-2.7-1.54a1 1 0 0 1 0-2c2.64 0 4.7 1.56 4.7 3.54S19.08 20 16.44 20z"/><path d="M16.44 21.94a1 1 0 0 1-1-1V6.84a1 1 0 0 1 2 0v14.1a1 1 0 0 1-1 1zM30.75 8.59H23.1a1 1 0 0 1 0-2h7.65a1 1 0 0 1 0 2zM30.75 11.93H23.1a1 1 0 0 1 0-2h7.65a1 1 0 0 1 0 2zM38.27 15.27H23.1a1 1 0 0 1 0-2h15.17a1 1 0 0 1 0 2zM38.27 18.6H23.1a1 1 0 0 1 0-2h15.17a1 1 0 0 1 0 2zM38.27 21.94H23.1a1 1 0 0 1 0-2h15.17a1 1 0 0 1 0 2zM38.27 25.27H10.36a1 1 0 1 1 0-2h27.91a1 1 0 0 1 0 2zM38.27 28.61H10.36a1 1 0 0 1 0-2h27.91a1 1 0 0 1 0 2zM38.27 32H10.36a1 1 0 0 1 0-2h27.91a1 1 0 0 1 0 2zM38.27 35.28H10.36a1 1 0 0 1 0-2h27.91a1 1 0 1 1 0 2zM38.27 38.62H10.36a1 1 0 0 1 0-2h27.91a1 1 0 0 1 0 2zM38.27 42H10.36a1 1 0 0 1 0-2h27.91a1 1 0 0 1 0 2z"/></svg>
                         <h5 class="mt-3">Company Financial</h5>
                         <a th:href="@{/manage/timeSheets}" class="nav-link">Approve Time Sheets</a>
-                        <a href="#" class="nav-link">Process Payroll</a>
+                        <a th:href="@{/manage/payPeriods}" class="nav-link">Process Payroll</a>
                     </div>
                 </div>
             </div>
@@ -158,7 +158,7 @@
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <a href="#" class="nav-link">Time Off Requests</a>
+                            <a th:href="@{/employee/timeOff}" class="nav-link">Time Off Requests</a>
                         </div>
                     </div>
                 </div>
@@ -183,7 +183,7 @@
                     </h2>
                     <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <a href="#" class="nav-link">View Pay Stubs</a>
+                            <a th:href="@{/employee/payStubs}" class="nav-link">View Pay Stubs</a>
                             <a th:href="@{/employee/payRate}" class="nav-link">Pay Rates</a>
                         </div>
                     </div>
@@ -209,7 +209,7 @@
                     </h2>
                     <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <a href="#" class="nav-link">Process Payroll</a>
+                            <a th:href="@{/manage/payPeriods}" class="nav-link">Process Payroll</a>
                             <a th:href="@{/manage/timeSheets}" class="nav-link">Approve Time Sheets</a>
                         </div>
                     </div>

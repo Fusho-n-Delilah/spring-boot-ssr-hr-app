@@ -223,6 +223,8 @@ public class EmployeeController {
 
                 start = start.plusDays(1);
             }
+
+            theModel.addAttribute("approverId", 0);
         } else {
             System.out.println("There's an existing timesheet");
             System.out.println(existingTimesheets.get(0));
@@ -234,6 +236,10 @@ public class EmployeeController {
             dbWorkHours.forEach(wh -> {
                 workHours.add(new WebWorkHours(wh.getEmployeeId(), wh.getDate(), wh.getHours(), wh.getPayPeriod()));
             });
+
+            //set approverId based on if a timesheet exists
+            theModel.addAttribute("approverId", existingTimesheets.get(0).getApproverId());
+
         }
 
         // int
@@ -267,5 +273,84 @@ public class EmployeeController {
         payrollService.save(timeSheet);
 
         return "redirect:/home";
+    }
+
+    @GetMapping("/payStubs")
+    public String viewPayStubs(@RequestParam(value = "year", required = false) String year,
+                                 HttpSession session, Model theModel){
+
+        //get employee
+        Employee employee = (Employee) session.getAttribute("employee");
+
+        //init lists for display in tables
+        List<PayPeriod> payPeriodList = null;
+        List<PayCheck> payChecksList = null;
+        PayCheck yearToDateTotals = new PayCheck();
+
+        if (year != null){
+            payPeriodList = payrollService.findPayPeriodsByYear(Integer.parseInt(year));
+            payChecksList = payrollService.findAllPayChecksByEmpIdAndYear(employee.getId(), Integer.parseInt(year));
+            yearToDateTotals = payrollService.getYearToDateTotalsByEmpId(employee.getId(), Integer.parseInt(year));
+            theModel.addAttribute("selectedYear", year);
+        } else {
+            payPeriodList = payrollService.findPayPeriodsByYear(LocalDate.now().getYear());
+            payChecksList = payrollService.findAllPayChecksByEmpIdAndYear(employee.getId(), LocalDate.now().getYear());
+            yearToDateTotals = payrollService.getYearToDateTotalsByEmpId(employee.getId(), LocalDate.now().getYear());
+        }
+
+        //get a list of all available years for a user to cheange selection
+        List<Integer> years = payrollService.getPayPeriodYears();
+
+        //add to the model
+        theModel.addAttribute("payPeriods", payPeriodList);
+        theModel.addAttribute("payChecks", payChecksList);
+        theModel.addAttribute("yearToDate", yearToDateTotals);
+        theModel.addAttribute("years", years);
+
+        return "list-employee-pay-stubs";
+    }
+
+    @GetMapping("/earningsStatement")
+    public String viewPayStubs(@RequestParam(value = "payCheckId") int payCheckId,
+                               HttpSession session, Model theModel){
+
+        //get employee
+        Employee employee = (Employee) session.getAttribute("employee");
+        employee = employeeService.findEmployeeWithSalaryInfo(employee);
+
+        //init lists and variables for display in tables
+        PayCheck curPayCheck = payrollService.findPayCheckById(payCheckId);
+        PayCheck yearToDateTotals = payrollService.getYearToDateTotalsByEmpId(employee.getId(), curPayCheck.getYear());
+        List<PayCheck> payCheckList = payrollService.findAllPayChecksByEmpIdAndYear(employee.getId(), curPayCheck.getYear());
+
+        //hourly rate and totals
+        double hourlyRate = employee.getSalaries().get(employee.getSalaries().size()-1).getSalary() / 2080.0;
+
+        double ptoTotal;
+        if(curPayCheck.getPtoHours() > 0){
+            ptoTotal = curPayCheck.getPtoHours() * hourlyRate;
+        } else {
+            ptoTotal = 0;
+        }
+
+        double regularTotal;
+        if(curPayCheck.getHoursWorked() > 0){
+            regularTotal = curPayCheck.getHoursWorked() * hourlyRate;
+        } else {
+            regularTotal = 0;
+        }
+
+        double totalHours = curPayCheck.getPtoHours() + curPayCheck.getHoursWorked();
+
+        //add to the model
+        theModel.addAttribute("payCheck", curPayCheck);
+        theModel.addAttribute("yearToDate", yearToDateTotals);
+        theModel.addAttribute("payCheckList", payCheckList);
+        theModel.addAttribute("ptoTotal", ptoTotal);
+        theModel.addAttribute("regularTotal", regularTotal);
+        theModel.addAttribute("totalHours", totalHours);
+        theModel.addAttribute("rate", hourlyRate);
+
+        return "view-employee-pay-stub";
     }
 }
