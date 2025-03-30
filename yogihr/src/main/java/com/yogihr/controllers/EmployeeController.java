@@ -212,7 +212,6 @@ public class EmployeeController {
 
         //if there isn't one create a blank one, else fill with the existing data
         if(existingTimesheets.isEmpty()){
-            System.out.println("no timesheet found");
 
             //create web work hours and timesheet
             LocalDate start = payPeriod.getFromDate();
@@ -226,9 +225,6 @@ public class EmployeeController {
 
             theModel.addAttribute("approverId", 0);
         } else {
-            System.out.println("There's an existing timesheet");
-            System.out.println(existingTimesheets.get(0));
-            System.out.println(existingTimesheets.get(0).getWorkHours());
 
             //get list of WorkHours
             List<WorkHours> dbWorkHours = existingTimesheets.get(0).getWorkHours();
