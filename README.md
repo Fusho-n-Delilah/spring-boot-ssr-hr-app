@@ -25,7 +25,7 @@ This applicaiton has a few inherant limitations:
 
 <h2>Walkthrough<h2/>
 
-homepage:
+<h3>homepage:</h3>
 
 when a regular employee logs in they are greeted with the homepage
 ![image](https://github.com/user-attachments/assets/66e62a30-81c8-4c00-96de-37c401a94416)
