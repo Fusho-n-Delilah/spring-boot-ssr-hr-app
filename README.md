@@ -19,6 +19,8 @@ This applicaiton has a few inherant limitations:
   1.) It only supports basic timesheets. This was a design choice for ease of implementation
   2.) This app only supports business in the following States: Alaska, Florida, Nevada, South Dakota, Tennessee, Texas, Washington, and Wyoming. These states have no income tax
   3.) The application itself uses responsive bootstrap components. However, it has not currently been optimized everywhere for mobile use. It would generally be frowned upon to process payroll from a phone.
+  4.) pagination will be added in the next iteration of this application
+  5.) The app would be better served implementing HTMX, and as i developed I realized this would be the approach I'd prefer for a server-side rendered application for the performance increase and ease of dev
 
 #Walkthrough
 
@@ -32,7 +34,8 @@ the navigation is based on role based access, and someone with an HR role sees t
 
 User Functionality:
 
-a user is able to do all the general functions that you would expect such as: view their salary info, request time off, submit their time sheets, change their contact information, and view their pay stubs
+a user is able to do all the general functions that you would expect such as: view their salary info, request time off, submit their time sheets, change their contact information, and view their pay stubs.
+
 
 ![image](https://github.com/user-attachments/assets/fee02dda-e009-413c-b44e-a718c8a33448)
 submitting a timesheet. The ability to change their timesheet is prevented if they have an approved timesheet for the current pay period
@@ -51,6 +54,25 @@ The user can view their year-to-date totals easily
 
 ![image](https://github.com/user-attachments/assets/cd61e047-798b-4cdd-9301-21306c2ba2ce)
 The user can view a breakdown of their current pay stub. a doughnut chart shows an easy to understand breakdown of the totals
+
+
+HR functionality:
+
+HR is able to approve timesheets and Pto requests, edit all employee information, and process payroll.
+
+
+![image](https://github.com/user-attachments/assets/c2e889cb-70a6-4614-9733-084d9087da79)
+viewing employees
+
+![image](https://github.com/user-attachments/assets/714691fd-8fc5-4002-9816-b548664b27bf)
+a multi page form for editing an employee
+
+![image](https://github.com/user-attachments/assets/159d3773-9201-4e0f-9cd5-4fe861e59802)
+a user friendly way for HR to trigger a process in the service layer to process all approved timesheets
+
+
+
+
 
 
 
