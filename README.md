@@ -1,5 +1,5 @@
 # Yogi HR
- A springboot server-side rendered app using thymeleaf and bootstrap. This project is an attempt at reverse engineering a popular payroll software as a demo of my ability to work with Spring Boot and popular design patterns. I had a lot of fun tackling challenges such as implementing basic HTTP auth (including role based access, database password encryption, and custom authentication success handlers), implementing charts with Chart JS, Server-side rendering, and the multiplicity of database tables and trying to maintain 3NF. In the end I built something I'm proud of. Thank you for checking out my project!
+ A spring boot server-side rendered app using thymeleaf and bootstrap. This project is an attempt at reverse engineering a popular payroll software as a demo of my ability to work with Spring Boot and popular design patterns. I had a lot of fun tackling challenges such as implementing basic HTTP auth (including role based access, database password encryption, and custom authentication success handlers), implementing charts with Chart JS, Server-side rendering, and the multiplicity of database tables and trying to maintain 3NF. In the end I built something I'm proud of. Thank you for checking out my project!
 
 
 ![YogiHR](https://github.com/user-attachments/assets/58cf3cc8-ba6d-4e69-8d83-1fe06f97f6b9)
